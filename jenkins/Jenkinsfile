@@ -28,6 +28,39 @@
 // }
 
 
+// pipeline{
+//     agent any
+
+//     tools{
+//         maven 'mymaven'
+//     }
+
+//     stages{
+//         stage('build')
+//         {
+//             steps{
+//                 echo "this is the build stage"
+//                 sh "mvn clean package"
+//             }
+//         }
+//         stage('test')
+//         {
+//             steps{
+//                 echo "this is the test stage"
+//                 sh "mvn test"
+//             }
+//         }
+//         // stage('deploy')
+//         // {
+//         //     steps{
+//         //         echo "This is the deploy stage"
+//         //     }
+//         // }
+//     }
+// }
+
+
+
 pipeline{
     agent any
 
@@ -35,26 +68,29 @@ pipeline{
         maven 'mymaven'
     }
 
+    parameters{
+        choice(name : 'VERSION' , choices:['1.1.0', '1.2.0'], description :'Choose Version')
+        booleanParam(name: 'executeTasks', defaultValue:true, description:'')
+    }
+
     stages{
         stage('build')
         {
-            steps{
-                echo "this is the build stage"
-                sh "mvn clean package"
-            }
+            echo "Build Iniated"
+            sh "mvn clean package"
         }
-        stage('test')
-        {
+
+        stage('test'){
+            when{
+                expression{
+                    params.executeTasks == true
+                }
+            }
+
             steps{
-                echo "this is the test stage"
+                echo "Tests iniated"
                 sh "mvn test"
             }
         }
-        // stage('deploy')
-        // {
-        //     steps{
-        //         echo "This is the deploy stage"
-        //     }
-        // }
     }
 }
