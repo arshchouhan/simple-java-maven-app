@@ -30,24 +30,31 @@
 
 pipeline{
     agent any
+
+    tools{
+        maven :'mymaven'
+    }
+
     stages{
         stage('build')
         {
             steps{
                 echo "this is the build stage"
+                sh "mvn clean package"
             }
         }
         stage('test')
         {
             steps{
                 echo "this is the test stage"
+                sh "mvn test"
             }
         }
-        stage('deploy')
-        {
-            steps{
-                echo "This is the deploy stage"
-            }
-        }
+        // stage('deploy')
+        // {
+        //     steps{
+        //         echo "This is the deploy stage"
+        //     }
+        // }
     }
 }
