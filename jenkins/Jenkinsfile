@@ -61,36 +61,38 @@
 
 
 
-pipeline{
+pipeline {
     agent any
 
-    tools{
+    tools {
         maven 'mymaven'
     }
 
-    parameters{
-        choice(name : 'VERSION' , choices:['1.1.0', '1.2.0'], description :'Choose Version')
-        booleanParam(name: 'executeTasks', defaultValue:true, description:'')
+    parameters {
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0'], description: 'Choose Version')
+        booleanParam(name: 'executeTasks', defaultValue: true, description: '')
     }
 
-    stages{
-        stage('build')
-        {
-            echo "Build Iniated"
-            sh "mvn clean package"
+    stages {
+
+        stage('Build') {
+            steps {              // ← was missing
+                echo "Build Initiated"
+                sh "mvn clean package"
+            }
         }
 
-        stage('test'){
-            when{
-                expression{
+        stage('Test') {
+            when {
+                expression {
                     params.executeTasks == true
                 }
             }
-
-            steps{
-                echo "Tests iniated"
+            steps {
+                echo "Tests Initiated"
                 sh "mvn test"
             }
         }
+
     }
 }
