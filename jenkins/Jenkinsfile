@@ -61,38 +61,51 @@
 
 
 
+// pipeline {
+//     agent any
+
+//     tools {
+//         maven 'mymaven'
+//     }
+
+//     parameters {
+//         choice(name: 'VERSION', choices: ['1.1.0', '1.2.0'], description: 'Choose Version')
+//         booleanParam(name: 'executeTasks', defaultValue: true, description: '')
+//     }
+
+//     stages {
+
+//         stage('Build') {
+//             steps {              // ← was missing
+//                 echo "Build Initiated"
+//                 sh "mvn clean package"
+//             }
+//         }
+
+//         stage('Test') {
+//             when {
+//                 expression {
+//                     params.executeTasks == true
+//                 }
+//             }
+//             steps {
+//                 echo "Tests Initiated"
+//                 sh "mvn test"
+//             }
+//         }
+
+//     }
+// }
+
+
 pipeline {
     agent any
 
-    tools {
-        maven 'mymaven'
-    }
-
-    parameters {
-        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0'], description: 'Choose Version')
-        booleanParam(name: 'executeTasks', defaultValue: true, description: '')
-    }
-
     stages {
-
-        stage('Build') {
-            steps {              // ← was missing
-                echo "Build Initiated"
-                sh "mvn clean package"
-            }
-        }
-
-        stage('Test') {
-            when {
-                expression {
-                    params.executeTasks == true
-                }
-            }
+        stage('Test Trigger') {
             steps {
-                echo "Tests Initiated"
-                sh "mvn test"
+                echo 'Pipeline triggered successfully!'
             }
         }
-
     }
 }
