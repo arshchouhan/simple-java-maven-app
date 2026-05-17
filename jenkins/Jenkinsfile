@@ -128,6 +128,10 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
+    tools{
+        maven "mymaven"
+    }
+
     stages {
 
         stage('Clone') {
