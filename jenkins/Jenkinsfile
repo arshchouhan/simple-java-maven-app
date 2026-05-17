@@ -130,6 +130,7 @@ pipeline {
 
     tools{
         maven "mymaven"
+        docker "mydocker"
     }
 
     stages {
