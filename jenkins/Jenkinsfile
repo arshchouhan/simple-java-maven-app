@@ -102,6 +102,14 @@ pipeline {
     agent any
 
     stages {
+        stage('Clone') {
+            steps {
+                git url: 'git@github.com:arshchouhan/simple-java-maven-app.git',
+                    branch: 'master',
+                    credentialsId: 'myjenkins'
+            }
+        }
+
         stage('Test Trigger') {
             steps {
                 echo 'Pipeline triggered successfully!'
