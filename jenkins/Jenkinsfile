@@ -124,7 +124,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'arshchouhan/simple-java-maven-app'
+        IMAGE_NAME = 'arshch246/simple-java-maven-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
