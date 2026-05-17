@@ -136,7 +136,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git url: 'git@github.com:arshchouhan/simple-java-maven-app.git',
+                git url: 'https://github.com/arshchouhan/simple-java-maven-app.git',
                     branch: 'master',
                     credentialsId: 'myjenkins'
             }
