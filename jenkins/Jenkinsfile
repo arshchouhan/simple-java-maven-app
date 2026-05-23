@@ -178,6 +178,50 @@
 // }
 
 
+// pipeline {
+//     agent any
+    
+//     tools {
+//         maven "mymaven"
+//     }
+    
+//     environment {
+//         IMAGE_NAME = 'arshch246/myapp2'
+//     }
+
+//     stages {
+//         stage('Checkout') {
+
+//             steps {
+//                 git branch: 'master', url: 'https://github.com/arshchouhan/simple-java-maven-app.git'
+//             }
+//         }
+
+//         stage('Build') {
+//             steps {
+//                 sh 'mvn clean package'
+//             }
+//         }
+        
+//         stage('Docker Build') {
+//             steps {
+//                 sh 'docker build -t $IMAGE_NAME:latest .'
+//             }
+//         }
+        
+//         stage('Docker Login and Push') {
+//             steps {
+//                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+//                     sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+//                     sh 'docker push $IMAGE_NAME:latest'
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+
 pipeline {
     agent any
     
@@ -211,8 +255,8 @@ pipeline {
         
         stage('Docker Login and Push') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                withCredentials([usernamePassword(credentialsId: 'ghce-cred', passwordVariable: 'GHCR_TOKEN', usernameVariable: 'GHCR_USER')]) {
+                    sh 'docker login -u $GHCR_USER -p $GHCR_PASS'
                     sh 'docker push $IMAGE_NAME:latest'
                 }
             }
