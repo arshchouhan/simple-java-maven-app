@@ -186,7 +186,7 @@ pipeline {
     }
     
     environment{
-        IMAGE_NAME "arshch246/myapp2"
+        IMAGE_NAME = "arshch246/myapp2"
     }
 
     stages {
@@ -205,7 +205,7 @@ pipeline {
 
         }
         
-        
+
         
         stage('build')
         {
