@@ -230,7 +230,7 @@ pipeline {
     }
     
     environment {
-        IMAGE_NAME = 'arshch246/myapp2'
+        IMAGE_NAME = 'ghcr.io/arshchouhan/myapp2'
     }
     
     stages {
