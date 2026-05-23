@@ -188,7 +188,6 @@ pipeline {
     environment {
         IMAGE_NAME = 'arshch246/myapp2'
     }
-    
     stages {
         stage('Checkout') {
 
