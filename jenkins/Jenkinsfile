@@ -193,8 +193,9 @@ pipeline {
 
     stages {
         
+        
         stage('Checkout') {
-            
+
             steps {
                 git branch: 'master', url: 'https://github.com/arshchouhan/simple-java-maven-app.git'
             }
