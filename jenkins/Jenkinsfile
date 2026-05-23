@@ -181,44 +181,39 @@
 pipeline {
     agent any
     
-    tools{
+    tools {
         maven "mymaven"
     }
     
-    environment{
-        IMAGE_NAME = "arshch246/myapp2"
+    environment {
+        IMAGE_NAME = 'arshch246/myapp2'
     }
 
     stages {
         
-        stage('checkout'){
-            steps{
-                git branch: 'main', url 'https://github.com/arshchouhan/simple-java-maven-app.git'
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/arshchouhan/simple-java-maven-app.git'
             }
         }
 
-        
-        stage('build'){
-            steps{
-                sh 'mvn clean pcakage'
-            }
-
-        }
-        
-
-        
-        stage('build')
-        {
-            steps{
-                sh 'docker build -t $IMAGE_NAME:latest'
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
             }
         }
         
-        stage('Docker Login') {
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME:latest .'
+            }
+        }
+        
+        stage('Docker Login and Push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER -p $DOCKER_PASS'
-                    sh 'echo "Login Successful"'
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'docker push $IMAGE_NAME:latest'
                 }
             }
         }
