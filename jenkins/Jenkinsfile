@@ -255,7 +255,7 @@ pipeline {
         
         stage('Docker Login and Push') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'ghce-cred', passwordVariable: 'GHCR_TOKEN', usernameVariable: 'GHCR_USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'ghce_cred', passwordVariable: 'GHCR_TOKEN', usernameVariable: 'GHCR_USER')]) {
                     sh 'docker login -u $GHCR_USER -p $GHCR_PASS'
                     sh 'docker push $IMAGE_NAME:latest'
                 }
