@@ -196,13 +196,15 @@ pipeline {
                 git branch: 'main', url 'https://github.com/arshchouhan/simple-java-maven-app.git'
             }
         }
-        
+
         
         stage('build'){
             steps{
                 sh 'mvn clean pcakage'
             }
+
         }
+        
         
         
         stage('build')
